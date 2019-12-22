@@ -49,7 +49,6 @@ public class cowland {
 				//System.out.println(cur.fun + " " + funVals[cur.parent][cur.index] + " " + attr[cur.parent]);
 				//System.out.println(curFun);
 				funVals[cur.index][i] = funVals[i][cur.index] = curFun;
-
 				for (int j = 0; j < A; j++) {
 					if (funVals[cur.index][j] != -1 && !visited[j]) {
 						visited[j] = true;
