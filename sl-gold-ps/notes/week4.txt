@@ -1,0 +1,59 @@
+Djikstra's shortest-path
+O(n)^2, produces shortest-path tree by always adding the node closest to root
+
+update values of neighboring nodes - starting node value is 0, 
+
+bfs or shortest path with graphs
+
+Classical problem:
+	2d array representing edges, store edge length	
+	
+	Array representing dists from starting node to each node
+		Set everything to -1, starting node is 0
+	
+int SP () {
+	for(int i=1;i<=N;i++)
+		vals[i] = -1;
+	vals[1] = 0;
+	used[1] = 1;
+	cur=1;
+	while (true) {
+		//update neighbors
+		for (int i=1;i<=N;i++) {
+			//if no edge
+			if(ar[cur][i]==0 || used[i])
+				continue;
+			if(vals[i]==1 ||vals[i]==vals[cur]+ar[cur][i])
+				vals[cur] = vals[cur]+ar[cur][i];
+		}
+
+		//pick closest node
+		int nextVal = -1, nextInd;
+		for(int i-1;i<=N;i++)
+		{
+			if(used[i] || vals[i]==-1)
+				continue;
+			//select closest node to start
+			if(nextVal==-1||nextVal>vals[i])
+			{
+				nextVal=vals[i];
+				nextInd=i;
+			}
+			if(nextInd==N)
+				return nextVal;
+			cur=nextInd;
+		}
+	}
+	return -1
+}
+
+P1: what's up with gravity (2013 USO Silver P1)
+	solve as a bfs or a shortest-path?
+	SP: N*M vertices (N^2) would be too short, need to optimize
+	BFS: bfs from C to D
+
+	set up a queue with nodes to process, then bfs, also keep track of used
+
+	int N, M;
+
+	solution written in gravity.java

@@ -1,0 +1,28 @@
+Notes for USACO silver 2018 fall
+Sorting arrays in java
+	Arrays.sort(arr);
+	Collections.sort(arrList);
+To compare classes:
+
+within class:
+static class Test implements Comparable {
+	/*stuff*/
+	public int compareTo(Test other) {
+		// return 1 if this is greater, -1 if other is greater, 0 if tie
+		// greater means in front in sorting
+	}
+}
+
+Problem 166A on codeforces - ranklist
+
+Binary Search
+int low = MIN-1, high = MAX+1, mid;
+while (low+1< high) {
+	mid = (low+high)/2
+	if(check(mid))
+		low=mid;
+	else
+		high=mid;
+}
+//answer stored in low
+

@@ -1,0 +1,60 @@
+INTRO TO DP
+A programming technique that sacrifices space for time
+Common in gold and platnium problems
+Store results of sub-problems in an array so they can be accessed again later
+Often used to find number of solutions or best solution (eg. max/min)
+
+Eg. Knapsack problems:
+Given a set of coins, {1, c1, c2, cn}(n <= 10)
+Infinite of each coin, sum to exacly to M (M<=10,000)
+Get to M using the least possible number of coins
+This is not greedy (Could be wrong)
+USING DP (starting from 0):
+	Array named dp, initialized to INF 
+	0 is initialized to 0
+	for each value: Store least number of coins required to reach that value
+	Loop through all values of i, add some coin, update dp for new value()
+	
+	code:
+	int dp[100001];
+	//initalize dp
+	for (int i = 0; i<=M; i++)
+		for (int j = 0; j<N; j++)
+			dp[i + c[j]] = min(dp[i + c[j]], dp[i] + 1);
+	Solution is at dp[M];
+
+	What if every coin had a happiness value?
+		instead of counting number of coins, add happiness value and use maximum, initalize to 0
+
+	What if you wanted to count the number of ways to get to M?
+		instead of adding number of coins, array index += dp[i] when adding a coin reaches that value
+		initalize array to 0, index 0 is 1
+		dp counts the number of ways to get to the value of the index
+
+To start writing DP, you need to figure out the state and transition
+	Figure out what the DP array represents
+	Transition - In this case, what taking a coin would do 
+
+Byteland: n can be turned into n/2, n/3, n/4 (numbers rounded down)
+exchange rate is 1:1, max dollars for 1 coin worth n
+	dp[i] denote maximum value you can get starting with a coin i
+	Iterate through increasieng i and compare itself with dp[i/2]+dp[i/3]+dp[i/4]
+
+DP: maximum subsequence in a set:
+	state: dp[i] is length of longest increasing subsequence only considering up to this element
+	and taking the i element (everything optimal before this element)
+	O(n^2)
+
+	dp array should be initialized to zeroes
+	for (int i=0; i<N; i++)
+		for (int j=0; j<i; j++)
+			if(arr[j]<arr[i]) //a increasing sequence that can include i
+				dp[i]=max(dp[i],dp[j]+1);
+
+DP: 10x10 array, traverse moving right or down, starting from top left and ending at bottom right
+	multiply everythign together, max amount of zeroes number can have
+	state: number of 2s, number of 5s in prime factorization
+	4 states: cur index i, j, number of 2s, number of 5s
+	transition: add num 2s/5s of next tile and add, can only transition to the right and down
+	
+	

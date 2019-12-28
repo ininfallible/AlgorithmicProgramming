@@ -1,0 +1,6 @@
+Week 1 notes
+hps:
+chars for some length, you can switch characters k times
+you are given a bunch of chars, 1 per line
+max number of wins possible
+

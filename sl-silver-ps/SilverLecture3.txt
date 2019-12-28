@@ -1,0 +1,21 @@
+GREEDY ALGORITHMS
+    Subtle to recognize, but much easier to implement
+    
+find the most optimal solution for every step which means you end up with the optimal solution
+
+EG. select max non-intersecting events
+    sol: sort by end points (least to greatest)
+    greedy solution is to pick event with least endpoint that fits 
+
+Proving Greedy Algorithms
+    needs to make sense in your head, make sure that choosing the greedy option is always optimal
+
+PREFIX SUM ARRAY
+    eg. array of 100k ints, need 100k queries of sums of a certain part
+    
+    array A where n = sum up to n, then you can subtract two sums to get the sum in between
+
+    can be generalized to 2d arrays 
+
+    eg. array A of 100k positive ints: find subarray sum smallest but greater than M
+    

@@ -1,0 +1,93 @@
+DFS and Graph Theory
+
+GRAPH THEORY
+	eg. network of roads, get from A to B
+	Vocab:
+		Edge - Road, connection, etc. 
+		Vertex/Node - City
+		Cycle - path where first and last nodes are the same
+		Adjacent - two nodes with an edge between them
+		Path -  sequence of edges connecting one node to another
+		Connected - path between any pair of nodes
+		Components - connected parts of a graph
+		Un/Directed - Edges can/can't be traversed from both directions
+		Weighted - Paths have weight (eg. distance)
+	
+	Ways to represent graphs:
+		Adjacency matrix
+		Edge list
+		Adjacency list
+	Adjacency Matrix:
+		Matrix indicates whether nodes are adjacent using 0/1
+		symmetrical along diagonal if undirected
+		so, if 5 is adjacent to 6 mat[5][6] == 1
+		Takes N^2 memory (bad for large graphs), but easy to implement
+	Adjacency List:
+		List of Lists:
+		Get(i) returns a list of nodes vertex i is adjacent to. 
+	Edge LIst: 
+		A list of edges :P
+		
+Lecture practice with pseudocode
+	Undirected graph with N nodes, M edges (Edges in form A, B)
+	given K special nodes. For each node, print out how many special nodes it is next to.
+
+	2d list of ints [N][] = edges
+	for i from 0 to M-1
+		read A, B
+		edges[A] add B
+		edges[B] add A
+	array of bools[a big number] special
+	for i from 0 to K-1
+		special[read from input] = true
+	
+	for int[] i in edges 
+		int out = 0
+		for int j in i
+			if special[j] out++
+		print out
+
+DFS (yay something I know)
+Time complexity: N where N is the number of nodes
+
+Ex code:
+	void dfs(int node) {
+		visited[node]=true;
+		for (int i=0; i<adj[node].size(); i++) {
+			if (!visited[adj[node][i]]) {
+				dfs(adj[node][i]);
+			}
+		}
+	}
+
+Ex problem (with pseudocode)
+	cities with connected nodes, given A and B, find if connected or not
+	O(M) per query, DFS from A to B
+	HOWEVER: with eg. 10^5 cities and 10^5 nodes bad things happen because slow
+	so, 
+	pre-process a graph:
+		DFS from all nodes, increment global label 
+		if two nodes are connected if label is the same:
+		dfs so each interconnected component has same label, lets you search in O(1)
+
+Implicit graphs: not explicitly stated but needs a graph to solve
+	given a knight placed somewhere on a chessboard NxM, how man cells can the knight reach?
+	model as a graph: edge connects two cells if the knight can move from one to another
+
+Ex problem with pseudocode
+given graph N nodes and M edges, print out how many nodes are in the component with node 1
+
+read nodes into adjacency list int[][] graph
+read edges into adjacency list graph
+static int counter = 0;
+static boolean visited = new int[N];
+dfs(1)
+static void dfs(int n) {
+	visited[N] = true;
+	counter++;
+	for (int i = 0; i < graph[n].size(); i++){
+		if (!visited[graph[n][i]) dfs(graph[n][i]);
+	}
+	return;
+}
+print counter

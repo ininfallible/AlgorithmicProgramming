@@ -1,0 +1,57 @@
+BFS
+
+ex code (C++):
+q is a linked list (queue)
+void bfs (int node) {
+	q.push(node);
+	while (!q.empty()){
+		int x = q.front();
+		q.pop();
+		for (int i= 0; i < adj[x].size(); i++) {
+			int y=adj[x][i];
+			if (!visited[y]){
+				visited[y]=true;
+				//distance from source node
+				dis[y]=dis[x]+1;
+				q.push(y);
+			}
+		}
+	}
+}
+
+Practice problem 
+
+Given graph with N nodes and E edges, print out the distance betweennode A and node B. 
+
+static LinkedList<Integer> q = new LinkedList<>();
+int[][] edges = new int[N][];
+int[] dis = new int[N];
+boolean[] visited = new int[N];
+//read from input
+
+//i is cur node
+public static int BFS(int i) {
+	q.push(i);
+	while (!q.isEmpty()) {
+		int cur = q.pop();
+		for (int j = 0; j < edges[cur].length; j++) {
+			if (!visited[edges[cur][j]) {
+				visited[edges[cur][j]] = true;
+				q.push(edges[cur][j]);
+				dis[edges[cur][j]] = dis[i]+1;
+			}
+		}
+		if (cur == B) break;
+	}
+}
+
+System.out.println(dis[B]);
+
+
+TREES
+Root: the one node, others placed under it
+Ancestor: node is an ancestor of another if it is above it in the tree and connected
+Parent: Directly above in tree, Always one parent
+Children: Directly below in tree, can have multiple children
+Depth: Distance from root
+

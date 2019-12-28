@@ -1,0 +1,35 @@
+Silver Lecture 4
+RECURSION/FLOODFILL
+
+What is Recursion?
+	A function that calls itself to solve smaller subproblems
+	must have a base condition where code terminates
+	Benefits: Often much shorter
+
+Execution stack:
+	Current function gets paused, nested gets executed
+	when nested finishes, current resumes
+
+Be careful with time complexity
+	Order of growth can be big
+
+Recursion is often replaceable by iteration
+
+
+GCD of two numbers using recursion
+
+//assume a greater than b
+//no error checking
+public int gcd (a, b){
+	if (b==0) return a;
+	if (a==0) return b;
+	return gcd (b, a%b);
+}
+
+FLOODFILL:
+Filling grids
+	identify starting point, recurse on it:
+	In Function:
+		Recurse in four directions if within bounds, mark as visited
+	
+

@@ -1,0 +1,105 @@
+2014 Feb. Silver P3
+
+eg. ababa
+from end: abab, aba, ab, a
+from beginning: baba, aba, ba, a
+way to get to ababa: aba + ba
+
+after bruteforce splitting into str1 + str2 
+
+in recursive function
+int sol(String cur) {
+	int sl = (int)(cur.length());
+	int i, j, k;
+	//split the string into two strings that might work
+	//then, check 
+	//see if str2 begins or ends with str1
+	//see if str1 begins or ends with str2
+	//thing: check if shorter string is prefix/suffix of longer string, if same length invalid
+	for (int i = 0; i < sl; i++) {
+		string str1 = cur.substring(0, i);
+		string str2 = cur.substring(i+1);
+		if (str1.length()>str2.length()) SWAP();
+		//case st1 is prefix
+		if(str1 == str2.substring(#TODO);
+			res += f(str2);
+		//case st1 is suffix
+		if(str1 == str.substring(#TODO);
+			res += f(str2);
+	}
+	
+}
+
+what to do after removing chars?
+We need to split string s into two different string (one is prefix/suffix of original string)
+
+Memoization: map Strings to results
+	if map key exists, use mapped int as result
+Time complexity of a map: O(Log(N))
+Time complexity of this brute force + memoization - N^2 from parameters
+
+Better way: don't take a string as the input: proper parameters + dp without map or strings
+	Pass start and ending positions within big string
+	cur = substring(start, end)
+	change newstart or newend when you iterate with i
+
+P2 USO
+Brute force solution:
+
+f(A) = interesting numbers from 1 to A
+	eg. from 100 to 132
+	calc from 1 to 132, then subtract 1 to 99
+	Makes brute force easier
+	basically a prefix array
+
+how to find: interesting numbers from 1 to N
+
+	Length of digits: 
+	eg. interesting numbers from 1 to 13562, 5 digits ... 1 digit interesting numbers
+
+f parameters: 
+	len of target interesting, 
+	ind(from right), 
+	domD (dominant integer, try all of them), 
+	t (times d used so far), 
+	F_up(boolean to see if next number needs to obey upper bound rule)
+
+//length of a long 
+int L(long x) {
+	long i, j, k;
+	j=1;
+	for(i=0, j=1;j<x;i++,j*=10);
+	return i;
+}
+//returns Yth digit in X (from right)
+int D(long X, int Y) {
+	long i, j, k;
+	for(i=1,j=1;i<Y;i++,j*=10);
+	return (X/j)%10;
+}
+//
+int f(int i_d, int ind, int D_d, int N_D, int F_UB) {
+	int i,j,k;
+	int maxd=9;
+	if(F_UB==1)
+		maxd=D(N,ind); //N is the upper bound
+
+	for(i=0;i<=maxd;i++) {
+		if(F_UB == 1 && i == maxd)
+			new_F_UB = 1;
+		else
+			new_F_UB = 0;
+		if(i == D_d)
+			f(i_d, ind+1,D_d,N_D+1,new_F_UB);
+		else
+			f(i_d, ind+1,D_d,N_D,new_F_UB);
+	}
+
+}
+use a used + dp array with 20,20,10,20,2
+
+Problem: even lengths are double-counted, how to solve? massive pie problem?
+	eg. 111222
+	set 2 possible dominating numbers, UB flag
+	Write a g function to count number of interesting numbers using only these 2 numbers
+	

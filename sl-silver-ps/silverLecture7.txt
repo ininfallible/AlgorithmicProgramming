@@ -1,0 +1,34 @@
+SETS - group of non-duplicate items
+	Insertion/deletion of items in O(log n) time per operation
+	Balanced binary search trees - complicated :(
+	sorts the elements
+	Before removing, check if inside set first (otherwise could cause problems)
+
+eg. N names, how many unique names are there
+
+Syntax: TreeSet<>
+Iterate through a set in Java:
+import java.util.*;
+Iterator it = ts.iterator();
+while (it.hasNext()) {
+	int temp=(Integer)it.next();
+	System.out.println(temp);
+}
+
+MAPS Map(string, int)
+	you can map any type to any other type
+	ex:
+	put ("A", 5)
+	get("A") == 5
+	get("B") == null
+
+	iterate:
+	for (Map.Entry<String, Integer> entry : treeMap.entrySet()) {
+		String key = entry.getKey();
+		Integer value = entry.getValue();
+
+		System.out.println(key + "=>" + value);
+	}
+
+Ex: Given list of N names, print out every unique name and how many times it occurs.
+

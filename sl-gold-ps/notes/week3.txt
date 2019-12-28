@@ -1,0 +1,93 @@
+Q1: Codeforces 870C
+how to tackle this problem?
+store max for every number?
+that leads to an array with 10^9 elements, every number is broken up into many sub-problems
+f(x) becomes f(x-4)+f(4), f(x-8)+f(8), etc. 
+time complexity of brute force would be O(N^2)
+
+static int f(x) {
+	
+}
+
+//find composite numbers
+int sieve[2100];
+//calc numbers from 1-
+//zeroes are prime numbers
+static void pre() { 
+	int K = 1000;
+	for(int i=2;i<K;i++){
+		if(sieve[i]==1) continue;
+		for(j=i*2;j<N;j+=i) sieve[j]=1;
+	}
+}
+
+P2: Codeforces 1037C
+so
+
+case below: optimal to switch
+10
+01
+case or longer: optimal to flip
+100
+001
+
+recursive function
+int f (int ind, int pt) {
+	if(ind==n) return 0;
+	char cur = str1.charAt(ind);
+	if (pt==1) cur = (cur=='0')?'1':'0';
+	//case same
+	int ret = INF;
+	if(a.charAt(ind)==b.charAt(ind)) ret=Math.min(ret,f(ind+1,0));
+	//case flip, switch
+	else {
+		ret = Math.min(ret,f(ind+1,0)+1);
+		ret = Math.min(ret,f(ind+1,1)+1);
+	}
+
+}
+
+P3: Codeforces 961B
+Sleep
+max number of ones
+convert zeroes to ones
+ex:
+6 3 
+1 3 5 2 5 4
+1 1 0 1 0 0
+eg. 0 so 1 1 1 1 0 0
+eg. 2 so 1 1 1 1 1 0
+find summation of zero positions that are covered - use a prefix sum
+
+P4: Codeforces 467C
+George and Job
+N ints
+Find K blocks of ints that sum to a max, each block is M long
+
+dp solution:
+//arr is array of numbers
+
+//O(N^2*N) -> O(N^3) reduce to O(N^2): costly part is operatings
+
+int f (int pos, int num) {
+	if(cur+m>N)return 0;
+	int ans=0;
+
+	//not selecting
+	ans = f(cur+1,num);
+
+	//selecting block
+	int j = 0;
+	//this is suboptimal: use a prefix sum for O(1) queries
+	/*
+	for(int i=0;i<M;i++) {
+		j += arr[pos+i];
+	}
+	*/
+	j = prefix[cur+M] - prefix[cur-1];
+
+	ans = Math.max(ans, f(cur+m)+j,num+1));
+}
+
+start from 0,0
+
