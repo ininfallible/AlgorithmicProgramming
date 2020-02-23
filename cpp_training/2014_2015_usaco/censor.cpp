@@ -1,4 +1,5 @@
 //2015 Feb. Gold
+//looking @ solution
 
 #include <iostream>
 #include <fstream>
