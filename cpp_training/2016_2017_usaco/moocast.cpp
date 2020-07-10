@@ -35,6 +35,7 @@ int main()
 	for (int ts=0;ts<N;ts++)
 	{
 		//determine which node is easiest to reach
+		//always better to have two smaller walkie-talkies than 1 bigger b/c pythagoras
 		int m_i=0;
 		for (i=0;i<N;i++)
 			if ((tdist[i]<tdist[m_i]&&tdist[i]!=-1)||tdist[m_i]==-1)

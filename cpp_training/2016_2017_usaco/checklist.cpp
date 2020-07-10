@@ -1,5 +1,6 @@
 //2016-2017 December Gold P2
 
+#include <cstdint>
 #include <iostream>
 #include <fstream>
 #include <cmath>
@@ -8,9 +9,8 @@
 using namespace std;
 
 int H, G;
-int h[1001][2], g[1001][2];
-int dp[1001][1001][2];
-int dist[1001][1001];
+int h[1002][2], g[1002][2];
+long dp[1002][1002][2];
 
 int d(int a[],int b[])
 {
@@ -29,7 +29,10 @@ int main()
 		fin >> g[i][0] >> g[i][1];
 
 	//dynamic programming
-	memset(dp,0x3F,sizeof(dp));
+	for (i=0;i<1002;i++)
+	for (j=0;j<1002;j++)
+		dp[i][j][0]=dp[i][j][1]=1<<30;
+
 	dp[1][0][0]=0;
 	for (i=0;i<=H;i++)
 	for (j=0;j<=G;j++)
@@ -43,7 +46,6 @@ int main()
 		dp[i][j+1][1]=min(dp[i][j+1][1], dp[i][j][1]+d(g[j+1],g[j]));
 		//h -> g
 		dp[i][j+1][1]=min(dp[i][j+1][1], dp[i][j][0]+d(g[j+1],h[i]));
-		continue;
 	}
 	cout << dp[H][G][0] << endl;
 	fout << dp[H][G][0] << endl;
