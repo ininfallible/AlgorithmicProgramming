@@ -1,6 +1,4 @@
-//2017 Feb Gold P3
-//implmenting sol - did not expect this to be a btree problem
-//optimizing from N2 to NlogN is hard
+//2018 Feb Gold P3
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -12,27 +10,28 @@ typedef vector<int> vi;
 typedef pair<int, int> pii;
 typedef long long ll;
 const int INF = 1<<20;
-const int MAXN = 25000;
-
-int bt[MAXN*4+1];
 
 int N;
+const int MAXN = 50000;
+int ord[MAXN*2+1];
+int used[MAXN+1];
+int ft[MAXN*4+1];
 
 int sum(int k)
 {
-	int ret = 0;
+	int s=0;
 	while (k>=1)
 	{
-		ret += bt[k];
+		s += ft[k];
 		k -= k&-k;
 	}
-	return ret;
+	return s;
 }
-void add(int k, int x)
+
+void add(int k)
 {
-	while (k < 2*N)
-	{
-		bt[k]+=x;
+	while (k <= 2*N+2) {
+		ft[k] ++; 
 		k += k&-k;
 	}
 }
@@ -43,23 +42,45 @@ int main()
 	ofstream fout("circlecross.out");
 	int i,j,k;
 	fin >> N;
-
-	//need to learn how this initialization works
-	vector<pii> pos(N, mp(-1, -1));
-
-	for (i=0;i<2*N;i++)
+	int hi_pos[N+1], lo_pos[N+1], cur;
+	for (i=1;i<=2*N;i++)
 	{
-		cin >> j; j--; // indexing from 0
-		if (pos[j].fi==-1) pos[j].fi=j;
-		else pos[j].se=j;
+		fin >> cur;
+		ord[i]=cur;
+		used[cur]++;
+		if (used[cur]==1) lo_pos[cur] = i;
+		if (used[cur]==2) hi_pos[cur] = i;
 	}
-	sort(pos.begin(), pos.end());
-	int ans=0;
-	for (int i=0;i<pos.size();i++)
+
+	//debug
+	//for (i=0;i<=N;i++)
+	//	cout << i << " " << lo_pos[i] << " " << hi_pos[i] << endl;
+
+	long ans = 0;
+	fill_n(used, N+1, 0);
+
+	for (i=1;i<=2*N;i++)
 	{
-		ans += sum(pos[i].se) - sum(pos[i].fi);
-		add(pos[i].se, 1);
+		cur = ord[i];
+		used[cur]++;
+		if (used[cur]==1)
+		{
+			//cout << "summing at " << lo_pos[cur] << endl;
+			ans += sum(2*N+1-lo_pos[cur]) - sum(2*N+1-hi_pos[cur]); 
+			//cout << "adding at " << hi_pos[cur] << endl;
+			add(2*N+1-hi_pos[cur]);
+
+			//debug
+			/*
+			for (j=2*N;j>=0;j--)
+			{
+				cout << sum(j) << " ";
+			}
+			cout << endl;
+			*/
+		}
 	}
+	fout << ans << endl;
 	cout << ans << endl;
 	return 0;
 }
