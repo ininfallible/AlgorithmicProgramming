@@ -1,76 +1,89 @@
-//2019 Dec Gold P1
-//implementing solution
+//2019 Dec 2019 P1 
 #include <bits/stdc++.h>
-
 using namespace std;
 
-const int MAX = 1001;
+#define pb push_back
+#define mp make_pair
+#define fi first
+#define se second
+typedef vector<int> vi;
+typedef pair<int, int> pii;
+typedef long long ll;
+const int INF = INT_MAX;
+const int MAXN = 1000+1;
 
+struct edge {
+	//a, b, cost, flow
+	int a, b, c, f;
+};
+
+//N junction joints, M pipes
 int N, M;
+int dist[MAXN]; //cost
+vector<edge> adj[MAXN];
+set<int> flows;
 
-map<int, vector<int>> nbrs;
-map<pair<int, int>, double> edgecost;
-map<pair<int, int>, double> edgeflow;
-vector<int> flows;
-
-int dijikstra (int source, int dest, int flowmin)
+int djk(int dest, int mf)
 {
-	//dist to all other nodes
-	map<int, int> dist;
-	//to visit, set sorts the pairs by dist
-	//basically a priority queue
-	set<pair<int, int>> visited;
-	visited.insert(make_pair(0,source));
-	while (!visited.empty())
+	//cout << "djk: " << mf << endl;
+	fill(dist, dist+N+1, INF);
+	dist[1] = 0;
+	//implement priority queue using set of pairs
+	set<pii> tP;
+	tP.insert(mp(0, 1));
+	while (!tP.empty())
 	{
-		//node i is currently being processed
-		int i = visited.begin()->second;
-		visited.erase(visited.begin());
-		//end con
-		if (i==dest) return dist[i];
-		for (auto j : nbrs[i])
-			//eliminate edges with less flow than flowmin
-			if (edgeflow[make_pair(i,j)] >= flowmin)
-				//con to insert
-				if (dist.count(j)==0||dist[i]+edgecost[make_pair(i,j)]<dist[j])
+		int cur = tP.begin()->second;
+		//cout << "cur: " << cur << endl;
+		tP.erase(tP.begin());
+		if (cur==dest) return dist[cur];
+		for (auto next: adj[cur])
+		{
+			if (next.f >= mf)
+			{
+				if (dist[cur] + next.c < dist[next.b])
 				{
-					dist[j] = dist[i] + edgecost[make_pair(i,j)];
-					visited.insert(make_pair(dist[j], j));
+					dist[next.b] = dist[cur] + next.c;
+					tP.insert(mp(dist[next.b], next.b));
 				}
+			}
+		}
 	}
+	//case not possible
 	return -1;
 }
+
 int main()
 {
-	int i,j,k;
 	ifstream fin("pump.in");
 	ofstream fout("pump.out");
+	int i,j,k;
 	fin >> N >> M;
-	int a, b, c, f;
-	//set up graph
-	for (i=0;i<N;i++)
+	int a, b;
+	for (i=1;i<=M;i++)
 	{
-		fin>>a>>b>>c>>f;
-		flows.push_back(f);
-		nbrs[a].push_back(b);
-		nbrs[b].push_back(a);
-		edgecost[make_pair(i,j)] = edgecost[make_pair(j,i)] = c;
-		edgeflow[make_pair(i,j)] = edgeflow[make_pair(j,i)] = f;
+		fin >> a >> b >> j >> k;
+		flows.insert(k);
+		adj[a].pb(edge{a, b, j, k});
+		adj[b].pb(edge{b, a, j, k});
 	}
+	ll best_num = 0, best_den = 1, cur_num, cur_den;
 
-	long long best_num = 0, best_den = 1, cur_num, cur_den;
-	for (int f : flows) 
+	for (auto a: flows)
 	{
-		//go through; as f is different it represents eliminating edges
-		cur_num = f;
-		cur_den = dijikstra(1, N, f);
+		//cout << a << endl;
+		cur_num = a;
+		cur_den = djk(N, a);
 		if (cur_den != -1)
-			if (cur_num*best_den>best_num*cur_den) 
+		{
+			if (cur_num * best_den > best_num * cur_den)
 			{
 				best_num = cur_num;
 				best_den = cur_den;
 			}
+		}
 	}
-	fout << best_num * 1000000LL / best_den << '\n';
+	fout << best_num * 1000000LL / best_den << endl;
+	
 	return 0;
 }
