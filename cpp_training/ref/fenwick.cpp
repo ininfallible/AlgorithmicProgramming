@@ -13,8 +13,8 @@ int sum (int k)
 	while (k>=1)
 	{
 		s += tree[k];
-		// k&-k returns smallest power of 2 less than k;
-		k-=k&-k;
+		// k&-k returns smallest power of 2 which divides k;
+		k -= k&-k;
 	}
 	return s;
 }
@@ -23,6 +23,7 @@ void add (int k, int x)
 	while (k <= n)
 	{
 		tree[k] += x;
+		// k&-k returns smallest power of 2 which divides k, which travels up the tree;
 		k += k&-k;
 	}
 }

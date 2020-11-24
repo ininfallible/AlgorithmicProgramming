@@ -1,4 +1,5 @@
 //2020 Jan Gold P3
+//implementing solution
 /*
  *	"->" used to assign the value of a pointer to a variable
  */
